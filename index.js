@@ -11,3 +11,26 @@ fetch("http://localhost:3000/posts")
             document.body.appendChild(para);
         });
     });
+const createPost = (postInfo) => {
+    return fetch("http://localhost:3000/posts", {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postInfo),
+    })
+};
+
+
+const handleForm = (e) => {
+    const { title, content } = e.target;
+    e.preventDefault();
+    //
+    createPost({
+        post: {
+            title: title.value,
+            content: content.value,
+            username: username.value,
+        },
+    });
+};
