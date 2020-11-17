@@ -4,7 +4,7 @@ const renderPost = (p) => {
     h2.innerText = p.attributes.title
     document.body.appendChild(h2);
     const para = document.createElement("p")
-    para.innerText = p.content;
+    para.innerText = p.attributes.content;
     document.body.appendChild(para);
 }
 
