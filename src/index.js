@@ -1,11 +1,16 @@
 //grap the h2 and p and append the html  information to the DOM
-const renderPost = (p) => {
+const renderPost = (p, u) => {
     const h2 = document.createElement("h2")
-    h2.innerText = p.attributes.title
+    h2.innerText = p.attributes.title;
     document.body.appendChild(h2);
+
     const para = document.createElement("p")
     para.innerText = p.attributes.content;
     document.body.appendChild(para);
+
+    const author = document.createElement('p')
+    author.innerText = `by: ${u.attributes.username}`;
+    document.body.appendChild(author);
 }
 
 fetch("http://localhost:3000/posts")
@@ -13,7 +18,9 @@ fetch("http://localhost:3000/posts")
     .then((info) => {
         console.log(info);
         info.data.forEach((p) => {
-            renderPost(p)
+            const u = info.included.find((u) => u.id == p.relationships.user.data.id);
+
+            renderPost(p, u)
         });
     });
 
