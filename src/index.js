@@ -35,8 +35,9 @@ const createPost = (postInfo) => {
         })
         //after fetching render post it will call the rederpost function
         .then((res) => res.json())
-        .then((data) => {
-            renderPost(data)
+        .then((info) => {
+            const u = info.included[0];
+            renderPost(info.data, u)
         });
 };
 
@@ -51,8 +52,8 @@ const handleForm = (e) => {
             content: content.value,
             username: username.value,
         },
-    }).then(res => res.json()).then(data => {
-        renderPost(data)
+    }).then(() => {
+        e.target.reset();
     });
 };
 document.querySelector("form").addEventListener("submit", handleForm);
